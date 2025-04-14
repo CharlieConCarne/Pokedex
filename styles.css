@@ -1,0 +1,85 @@
+html {
+    background: url(img/2.png);
+    background-repeat: no-repeat;
+    background-size: 115%;
+    color: #a2a2a2;
+
+}
+
+body {
+    padding: 25px;
+    font-family: 'Jetbrains Mono', sans-serif;
+}
+
+.styling-container {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
+#names {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+
+img {
+    max-width: 400px;
+    min-width: 600px;
+    max-height: 400px;
+    min-height: 600px;
+}
+
+#info-styling {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    position: absolute;
+    top: 80%;
+}
+
+#pokedexEntry {
+    font-size: 20px;
+    color: white;
+}
+
+#pokedexEntryJAP {
+    font-size: 18px;
+    word-break: keep-all;
+    white-space: nowrap;
+    text-align: justify;
+    line-height: 1.5;
+    writing-mode: vertical-rl;
+}
+
+#pokemonSprite { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#top-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    line-height: 2;
+}
+
+#pokemonTrivia {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    top: -15px;
+    left: 20px;
+}
