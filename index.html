@@ -6,47 +6,64 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class="styling-container">
-                <div id="info-styling">
-                    <p id="pokedexEntryJAP"></p>
+      
+        <div class="body-styling">
+            <p id="pokedexEntryJAP"></p>
 
-                <div id="flex-container-1">
+     <!-- SECTION ONE, LEFT SIDE OF PAGE -->
+
+        <div id="section-one">
+            <div id="pokemon-title-info">
+                <div id="pokemonNumber-search">
                     <h2 id="pokemonNumber"></h2>
-                    <div id="names">
-                        <h1 id="pokemonName"></h1>
+                </div>
+                <div id="names">
+                    <h1 id="pokemonName"></h1>
+                    <h6 id="pokemonNameJAP"></h6>
+                </div>
+                <div id="pokemonType">
+                    <h3 id="type1"></h3>
+                    <h3 id="type2"></h3>
+                </div>
+            </div>   
 
-                        <h6 id="pokemonNameJAP"></h6>
-                    </div>
-                    <div id="flex-container-2">
-                        <h3 id="pokemonType"></h3>
-                    </div>
-
-                    <div id="pokemonSprite">
-                        <img></img>
-                    </div>
-                                     
-                    <div id="controls">
-                        <button id="previous">Previous</button>
-                        <button id="next">Next</button>
-                    </div>
+            <div id="button-sprite-container">
+                <div id="pokemonSprite">
+                    <img></img>
                 </div>
             </div>
-            <div id="info-container">
-                <div id="top-container">
-                    <div>Base Stats: 
-                        <ul id="pokemonBaseStats"></ul>
-                    </div>
-                    <div id="pokemonAbilities">Possible abilites: 
-                        <ul id="pokemonInformation"></ul>
 
-                    </div>
-                    <div id="pokemonTrivia">
-                        
-                    </div>
-                </div>
+            <div id="controls">
+                <button id="previous">Previous</button>
+                <button id="next">Next</button>
+            </div>
+
+        </div>
+
+        <!-- SECTION TWO, RIGHT SIDE OF PAGE -->
+
+        <div id="section-two">
+            <img id="pokedex-img" alt="pokedex-img" src="img/1.png" />
+            <div id="pokemonInfo-container">
+                <ul id="pokemonStats"></ul>
                 <p id="pokedexEntry"></p>
             </div>
+
+            <h4>All Moves:</h4>
+            <div id="pokemonMoves"></div>
         </div>
+
+        <!-- GITHUB PROJECT LINKS -->
+
+        <div class="git-hub-link">
+            <a id="github-profile" target="_blank" href="https://github.com/CharlieConCarne/Pokedex">GitHub</a>
+        </div>
+
+    </div>
     </body>
+
+    <!-- SCRIPTS -->
+
     <script type="module" src="./scripts.js"></script>
+
 </html>

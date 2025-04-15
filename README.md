@@ -4,7 +4,12 @@ A web-based Pokédex application that allows users to browse through all 1118 Po
 
 Another beginner coding project, after diving deeper into JS and continuing to learn as much as I can, this project especially is focusing on API implementation and getting myself comfortable with fetching data.
 
-![Pokédex Preview](img/screenshot.png)
+![Pokédex Preview](img/screenshot1.png)
+
+<div align="center">
+  <img src="img/screenshot2.png" width="48%" />
+  <img src="img/screenshot3.png" width="48%" />
+</div>
 
 ## Features
 
@@ -18,6 +23,9 @@ Another beginner coding project, after diving deeper into JS and continuing to l
   - Abilities
   - Height and weight
   - Pokédex entries (English and Japanese)
+- Mobile responsive design
+- Complete moveset for each Pokémon
+- Type coloring with visual effects
 
 ## Technologies Used
 
@@ -53,12 +61,11 @@ Another beginner coding project, after diving deeper into JS and continuing to l
 
 ## Upcoming Features
 
-- [ ] Improved styling of button elements
 - [ ] Search functionality to find specific Pokémon
-- [ ] Additional Pokémon information
+- [ ] Additional filtering options by type and generation
 - [ ] API data caching for improved performance
 - [ ] Enhanced background graphics
-- [ ] Integration of all available sprites from the API
+- [ ] Favorites system to save preferred Pokémon
 
 ## API
 

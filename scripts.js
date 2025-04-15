@@ -1,3 +1,7 @@
+import { colors } from "./type-colors.js"
+
+
+
 // Our index number for selecting which pokemon in the pokdex we are on
 let indexNumber = 1;
 
@@ -11,7 +15,6 @@ const buttonNext = () => {
     
     if (indexNumber <= 1117) {
         indexNumber++
-        pokemonInformation.innerHTML = ""
     } 
     console.log(indexNumber)
     pokemonData()
@@ -25,7 +28,6 @@ const buttonPrev = () => {
         indexNumber = 0;
     } else {
         indexNumber--
-        pokemonInformation.innerHTML = ""
     }
     console.log(indexNumber)
     pokemonData()
@@ -42,29 +44,57 @@ const pokemonData = () => {
     const pokemonNameJAP = document.getElementById("pokemonNameJAP");
     const pokemonNumber = document.getElementById("pokemonNumber");
     const pokemonSprite = document.getElementById("pokemonSprite");
-    const pokemonType = document.getElementById("pokemonType");
+    const type1 = document.getElementById("type1");
+    const type2 = document.getElementById("type2");
     const pokedexEntry = document.getElementById("pokedexEntry");
     const pokedexEntryJAP = document.getElementById("pokedexEntryJAP");
-    const pokemonStats = document.getElementById("pokemonBaseStats");
-    const pokemonInformation = document.getElementById("pokemonInformation");
-    const pokemonTrivia = document.getElementById("pokemonTrivia");
+    const pokemonStats = document.getElementById("pokemonStats");
+    const pokemonMoves = document.getElementById("pokemonMoves");
 
 
     // Fetching API data and populating HTML elements
     fetch(`https://pokeapi.co/api/v2/pokemon/${indexNumber}`)
     .then (response => response.json())
     .then (data => {
+
+        const cmToInches = Math.floor((data.height * 10) * 0.39)
+        const inchesToFeet = cmToInches * 0.08
+
         pokemonName.textContent = data.name.charAt(0).toUpperCase() + data.name.slice(1);
         pokemonNumber.textContent = `#${data.id}`;
+            
         if (data.types.length > 1) {
-            pokemonType.textContent = `
-            ${data.types[0].type.name.charAt(0).toUpperCase()}${data.types[0].type.name.slice(1)} 
-            ${data.types[1].type.name.charAt(0).toUpperCase()}${data.types[1].type.name.slice(1)}`
+            type1.textContent = `${data.types[0].type.name.charAt(0).toUpperCase()}${data.types[0].type.name.slice(1)}`
+            type2.textContent = `${data.types[1].type.name.charAt(0).toUpperCase()}${data.types[1].type.name.slice(1)}`
+            type1.style.backgroundColor = colors[data.types[0].type.name]
+            type1.style.filter = `drop-shadow(0 0 0.5em ${colors[data.types[0].type.name]})`
+            type2.style.backgroundColor = colors[data.types[1].type.name]
+            type2.style.filter = `drop-shadow(0 0 0.5em ${colors[data.types[1].type.name]})`
+
         } else {
-            pokemonType.textContent = `${data.types[0].type.name.charAt(0).toUpperCase()}${data.types[0].type.name.slice(1)}`
+
+            // If data.types returns only 1 type, clear type2 elements 
+            type1.textContent = `${data.types[0].type.name.charAt(0).toUpperCase()}${data.types[0].type.name.slice(1)}`
+            type2.textContent = ""
+            type1.style.backgroundColor = colors[data.types[0].type.name]
+            type1.style.filter = `drop-shadow(0 0 0.5em ${colors[data.types[0].type.name]})`
+            type2.style.backgroundColor = ``
+            type2.style.filter = ``
+
+
+
         };
 
+
+        // Sprite changes 
+        pokemonSprite.innerHTML = `
+                <img 
+                src="${data.sprites.other.home.front_default}" 
+                /> `;
+
+
         // Pokemon Base Stats, mapping the data.stats array from the API and assigning the base_stat correctly
+
             const map1 = data.stats.map((x) => x)
             const HP = map1[0].base_stat
             const ATK = map1[1].base_stat
@@ -81,25 +111,18 @@ const pokemonData = () => {
                 <li>SPECIAL DEF: ${SPECIAL_DEF}</li>
                 <li>SPD: ${SPD}</li>
                 <li>TOTAL: ${TOTAL}</li>
-            `
-            pokemonSprite.innerHTML = `
-            <img 
-                src="${data.sprites.other.home.front_default}"
-            </img>
-        `;
 
-        // Pokemon trivia, Abilities; 
-        const map2 = data.abilities.map((x) => x)
-            map2.forEach(element => { 
-            pokemonInformation.innerHTML += `
-                <li>${element.ability.name.toUpperCase()}</li>
-            `
+                <li>Height: ${data.height * 10}cm (${inchesToFeet}ft)</li>
+                <li>Weight: ${data.weight / 10}kg (${Math.floor((data.weight / 10)) * 2.25}lbs)</li>
+            ` 
+    // Pokemon Learned Moves:
+        const map2 = data.moves.map((x) => x)
+        pokemonMoves.innerHTML = ''; // Clear previous moves
+        map2.forEach(element => {
+            pokemonMoves.innerHTML += `
+                <div>${element.move.name.toUpperCase()}</div>
+                `
         });
-
-        pokemonTrivia.innerHTML = `
-            <p>Height: ${data.height / 10}M</p>
-            <p>Weight: ${data.weight / 10}kg (${Math.floor((data.weight /10) * 2.205)}lbs)</p>
-        `
 
     // Fetching API data for the pokedex entries
         fetch(`https://pokeapi.co/api/v2/pokemon-species/${indexNumber}`)
@@ -107,19 +130,27 @@ const pokemonData = () => {
         .then (data => {
             
 
-            // Finding entries in the data.flavor_text_entries array that have the 'en' and 'ja' props
-            const englishEntry = data.flavor_text_entries.find(entry => entry.language.name === 'en')
-            const japName = data.names.find(name => name.language.name === 'ja')
-            const japEntry = data.flavor_text_entries.find(entry => entry.language.name === 'ja')
-      
-            if (englishEntry) {
-                pokedexEntry.textContent = englishEntry.flavor_text
-            } 
+            // Finding specifically English entries
+            const filter1 = data.flavor_text_entries.filter((x) => x.language.name === 'en')
+            
+            // Filtering for Omega RUBY 
+            const filter2 = filter1.filter((x) => x.version.name === 'omega-ruby')
+            
+            // Adding them together
+            const pokedexText = `${filter2[0].flavor_text}`
+            // Updating pokedex text entry
+            pokedexEntry.textContent = ""
+            pokedexEntry.textContent = pokedexText
 
-            if (japEntry) {
-                pokedexEntryJAP.textContent = japEntry.flavor_text
-                pokemonNameJAP.textContent = `(${japName.name})`
-            }
+            // Filtering for JAP pokedex entries
+            const filterJAP = data.flavor_text_entries.filter((x) => x.language.name === 'ja')
+            const pokedexTextJAP = `${filterJAP[0].flavor_text}`
+
+            pokedexEntryJAP.textContent = pokedexTextJAP
+
+            const filterNameJAP = data.names.filter((x) => x.language.name === 'ja-Hrkt')
+            pokemonNameJAP.textContent = `${filterNameJAP[0].name}` 
+
     })
 })}
 
