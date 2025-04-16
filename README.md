@@ -7,6 +7,7 @@ Another beginner coding project, after diving deeper into JS and continuing to l
 https://github.com/user-attachments/assets/8d0fff6f-9754-4597-9026-dfb2237f336d
 
 <div align="center">
+   <video src="img/video.mp4" width="800"></video>
    <img src="img/screenshot1.png" width="32%" />
    <img src="img/screenshot2.png" width="32%" />
    <img src="img/screenshot3.png" width="32%" />
