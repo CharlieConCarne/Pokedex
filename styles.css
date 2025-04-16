@@ -1,36 +1,27 @@
 html {
     background: black;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: fixed;
-}
-
-body {
-    transform: scale(0.95)
-    width: 100vw;
-    height: 100vh;
+} body {
     color: white;
-    padding: 10px;
     font-family: 'Fira Code', sans-serif;
-}
-
-.body-styling {
+    margin: 0;
+    padding: 15px;
+} .body-styling {
     display: flex;
     flex-direction: row;
-}
-#pokedexEntryJAP {
+} #pokedexEntryJAP {
     font-size: 18px;
     word-break: keep-all;
     white-space: nowrap;
     text-align: justify;
     line-height: 1.5;
     writing-mode: vertical-rl;
-    position: absolute;
+    margin-top: 30px;
 }
 
 /* SECTION 1 STYLING */
 #section-one {
-    width: 50%;
+    width: 50vw;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -61,17 +52,19 @@ body {
     border-radius: 5px;
     padding: 5px;
 } #pokemonSprite img {
-    filter: drop-shadow(0 0 100rem #a2a2a2);
     top: 260px;
     max-width: 400px;
     min-width: 600px;
     max-height: 400px;
     min-height: 600px;
+} #sprite-container {
+    display: flex;
+    flex-direction: row;
 } #controls {
     display: flex;
     flex-direction: row;
     gap: 40px;
-    margin-top: 35px;
+    margin-top: 85px;
     margin-left: 160px;
 } button {
     background-color: #1f1f1f;
@@ -81,47 +74,32 @@ body {
     padding: 5px;
     width: 100px;
     height: 30px;
+
+    transition: transform 0.6s 
 } button:hover {
-    transform: scale(1.05);
+    transform: scale(1.2);
     filter: drop-shadow(0 0 1em white);
+    background-color: white;
+    color: black;
 } button:active {
-    transform: scale(1.1);
+    transform: scale(1.4)
 }
 
 /* SECTION 2 STYLING */
 #section-two {
-    width: 50%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-} #pokedexEntry {
-    max-width: 400px;
-    color: white;
-    line-height: 1.5;
-    font-size: 22px;
-} #pokedex-img {
-    width: 300px;
-} #pokemonInfo-container {
-    display: flex;
-    flex-direction: row;
-} #pokemonStats {
-    white-space: pre;
-    list-style: none;
-    line-height: 0.6;
-} #pokemonMoves {
-    display: grid;
-    gap: 10px;
-    padding-right: 20px;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
-    line-height: 2.4;
-    list-style: none;
-} #pokemonMoves div {
-    color: white;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 12px;
-    width: 110px;
-    height: 30px;
+    align-items: center;
 }
+#pokedex-img {
+    max-width: 300px;
+    margin-top: 100px;
+} #pokedexEntry {
+    font-size: 22px;
+    padding: 25px;
+} 
 
 /* GITHUB PROJECT LINK */
 #github-profile {
@@ -136,30 +114,66 @@ body {
     transform: scale(1.05)
 }
 
+/* BACKGROUND STYLING */
+#background {
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: -1;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    animation-name: backgroundScroll;
+    animation-duration: 120s;
+    animation-delay: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+} #background img {
+    opacity: 0.1;
+    z-index: -1;
+    max-width: 400px;
+}
+
+
+
+/* ANIMATIONS */
+@keyframes backgroundScroll {
+
+    from {
+        transform: translateY(0)
+
+    }
+
+    to {
+        transform: translateY(-8000px)
+
+    }
+}
+
+/* MEDIA QUERIES */
 @media screen and (max-width: 900px) {
-    html {
-        background: black;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: fixed;
-    } .body-styling {
-        padding: 20px;
+     .body-styling {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 100px;
+    } #pokedexEntryJAP {
+        position: absolute;
     } #section-one {
-        padding: 60px;
-        transform: scale(1.07);
-    } #section-two {
+        align-self: center;
         width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
+        height: 50vh;
+        margin-top: 5px;
+        margin-left: 225px;
+    } #section-two {
+        margin-top: 280px;
         align-items: center;
-        transform: scale(0.85);
+        width: 100vw;
+        height: 50vh;
     } #pokedexEntry {
-        color: white;
-    } #pokemonMoves {
-        padding: 0 50px;
-    } 
-} 
+        padding: 50px;
+    }
+}
+
