@@ -4,8 +4,6 @@ A web-based Pokédex application that allows users to browse through all 1118 Po
 
 Another beginner coding project, after diving deeper into JS and continuing to learn as much as I can, this project especially is focusing on API implementation and getting myself comfortable with fetching data.
 
-![Pokédex Preview](img/screenshot1.png)
-<div style="position:relative; width:100%; height:0px; padding-bottom:62.500%"><iframe allow="fullscreen;autoplay" allowfullscreen height="100%" src="https://streamable.com/e/69tkfo?autoplay=1&muted=1" width="100%" style="border:none; width:100%; height:100%; position:absolute; left:0px; top:0px; overflow:hidden;"></iframe></div>
 
 <div align="center">
   <img src="img/screenshot2.png" width="48%" />
