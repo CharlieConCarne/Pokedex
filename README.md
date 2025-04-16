@@ -6,6 +6,7 @@ Another beginner coding project, after diving deeper into JS and continuing to l
 
 <div align="center">
    <video src="img/video.mp4" width="400"></video>
+   <img src="img/screenshot4.png" width="100%" />
    <img src="img/screenshot1.png" width="32%" />
    <img src="img/screenshot2.png" width="32%" />
    <img src="img/screenshot3.png" width="32%" />
