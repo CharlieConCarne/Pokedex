@@ -5,7 +5,7 @@ A web-based Pokédex application that allows users to browse through all 1118 Po
 Another beginner coding project, after diving deeper into JS and continuing to learn as much as I can, this project especially is focusing on API implementation and getting myself comfortable with fetching data.
 
 <div align="center">
-   <video src="img/video.mp4" width="800"></video>
+   <video src="img/video.mp4" width="400"></video>
    <img src="img/screenshot1.png" width="32%" />
    <img src="img/screenshot2.png" width="32%" />
    <img src="img/screenshot3.png" width="32%" />
@@ -57,8 +57,6 @@ Another beginner coding project, after diving deeper into JS and continuing to l
    ```
 
 4. Open your browser and navigate to `http://localhost:3000`
-
-## Upcoming Features
 
 ## API
 
