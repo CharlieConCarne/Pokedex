@@ -4,6 +4,8 @@ A web-based Pokédex application that allows users to browse through all 1118 Po
 
 Another beginner coding project, after diving deeper into JS and continuing to learn as much as I can, this project especially is focusing on API implementation and getting myself comfortable with fetching data.
 
+https://github.com/user-attachments/assets/8d0fff6f-9754-4597-9026-dfb2237f336d
+
 <div align="center">
    <img src="img/screenshot1.png" width="32%" />
    <img src="img/screenshot2.png" width="32%" />
@@ -11,6 +13,9 @@ Another beginner coding project, after diving deeper into JS and continuing to l
 </div>
 
 ## Features
+
+
+
 
 - Browse through all 1025 Pokémon
 - View detailed information including:
