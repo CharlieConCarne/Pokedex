@@ -56,17 +56,6 @@ const updatePokemonInfo = async () => {
             type2.style.backgroundColor = ``
             type2.style.filter = ``
         };
-
-         /* Abilities: 
-        if (pokedexData.abitlites.length > 1) {
-            abilityName.innerHTML = `
-            ${pokedexData.abitlites[0].name}
-            ${pokedexData.abilities[1].name}
-            `
-        } else {
-            abilityName.innerHTMl = `${pokedexData.abilities[0].name}` 
-        } */
-
     } catch (error) {
         console.log("updatePokemonInfo ERROR", error)
         }
@@ -98,9 +87,21 @@ const updatePokedexEntry = async () => {
         // Filtering for Japanese Pokémon names
         const pokemonNameJAP = document.getElementById("pokemonNameJAP");
         pokemonNameJAP.textContent = pokedexData.names.filter((x) => x.language.name === 'ja-Hrkt')[0].name
+
+         /* Abilities: 
+        if (pokedexData.abitlites.length > 1) {
+            abilityName.innerHTML = `
+            ${pokedexData.abitlites[0].name}
+            ${pokedexData.abilities[1].name}
+            `
+        } else {
+            abilityName.innerHTMl = `${pokedexData.abilities[0].name}` 
+        } */
+       
     } catch (error) {
         console.log("updatePokedexEntry ERROR", error)
     }
+    
 }
 
 // Fetching Gen1 Pokémon Sprites for the background scroll animation (Very Costly)
