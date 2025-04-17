@@ -1,142 +1,128 @@
 import { colors } from "./type-colors.js"
 
 // Our index number for selecting which pokemon in the pokdex we are on
-let indexNumber = 1;
+let indexNumber = 150;
 
 // HTML buttons
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("previous");
 
-// Next Button
-const buttonNext = () => {
-    
-    if (indexNumber <= 1025) {
+// Next Button  
+nextBtn.addEventListener("click", () => {
+    if (indexNumber < 1025) {
         indexNumber++
-
-    } 
-    pokemonData()
-}   
-
-nextBtn.addEventListener("click", buttonNext);
+} 
+    updatePokemonInfo()
+    updatePokedexEntry()
+});
 
 // Previous Button
-const buttonPrev = () => {
-    if (indexNumber <= 0) {
-        indexNumber = 0;
-    } else {
+prevBtn.addEventListener("click", () => {
+    if (indexNumber > 1) {
         indexNumber--
+} 
+    updatePokemonInfo()
+    updatePokedexEntry()
 
-    }
-    pokemonData()
-}
+});
 
-prevBtn.addEventListener("click", buttonPrev)
+// Update Pokémon Information function
+const updatePokemonInfo = async () => {
+    try {
+        const dataCall = await fetch(`https://pokeapi.co/api/v2/pokemon/${indexNumber}`)
+        const mainData = await dataCall.json()
 
+        // Updating Pokémon Number, Types and Sprite
+        const pokemonSprite = document.getElementById("pokemonSprite");
+        pokemonSprite.innerHTML = `<img src="${mainData.sprites.other.home.front_default}" />`
+        pokemonSprite.style.filter = `drop-shadow(0 0 1em ${colors[mainData.types[0].type.name]})`
 
-// Updating Pokemon Data, names, types etc.
-const pokemonData = () => {
-    
-    // Declaring all necessary HTML elements 
-    const pokemonName = document.getElementById("pokemonName");
-    const pokemonNameJAP = document.getElementById("pokemonNameJAP");
-    const pokemonSprite = document.getElementById("pokemonSprite");
-    const type1 = document.getElementById("type1");
-    const type2 = document.getElementById("type2");
-    const pokedexEntry = document.getElementById("pokedexEntry");
-    const pokedexEntryJAP = document.getElementById("pokedexEntryJAP");
-    
-    // Fetching API data and populating HTML elements
-    fetch(`https://pokeapi.co/api/v2/pokemon/${indexNumber}`)
-    .then (response => response.json())
-    .then (data => {
-        
-        // Updating pokemonName element
-        pokemonName.textContent = data.name.charAt(0).toUpperCase() + data.name.slice(1);
-        pokemonNumber.textContent = `#${data.id}`;
-           
-        // Updating Types to match colors from type-colors for multi-type Pokémon
-        if (data.types.length > 1) {
-            type1.textContent = `${data.types[0].type.name.charAt(0).toUpperCase()}${data.types[0].type.name.slice(1)}`
-            type2.textContent = `${data.types[1].type.name.charAt(0).toUpperCase()}${data.types[1].type.name.slice(1)}`
-            type1.style.backgroundColor = colors[data.types[0].type.name]
-            type1.style.filter = `drop-shadow(0 0 0.5em ${colors[data.types[0].type.name]})`
-            type2.style.backgroundColor = colors[data.types[1].type.name]
-            type2.style.filter = `drop-shadow(0 0 0.5em ${colors[data.types[1].type.name]})`
+        const type1 = document.getElementById("type1");
+        const type2 = document.getElementById("type2");    
+        if (mainData.types.length > 1) {
+            type1.textContent = `${mainData.types[0].type.name.charAt(0).toUpperCase()}${mainData.types[0].type.name.slice(1)}`
+            type2.textContent = `${mainData.types[1].type.name.charAt(0).toUpperCase()}${mainData.types[1].type.name.slice(1)}`
+            type1.style.backgroundColor = colors[mainData.types[0].type.name]
+            type1.style.filter = `drop-shadow(0 0 0.5em ${colors[mainData.types[0].type.name]})`
+            type2.style.backgroundColor = colors[mainData.types[1].type.name]
+            type2.style.filter = `drop-shadow(0 0 0.5em ${colors[mainData.types[1].type.name]})`
 
         } else {
-
-            // If data.types returns only 1 type, clear type2 elements 
-            type1.textContent = `${data.types[0].type.name.charAt(0).toUpperCase()}${data.types[0].type.name.slice(1)}`
+             // If data.types returns only 1 type, clear type2 elements 
+            type1.textContent = `${mainData.types[0].type.name.charAt(0).toUpperCase()}${mainData.types[0].type.name.slice(1)}`
             type2.textContent = ""
-            type1.style.backgroundColor = colors[data.types[0].type.name]
-            type1.style.filter = `drop-shadow(0 0 0.5em ${colors[data.types[0].type.name]})`
+            type1.style.backgroundColor = colors[mainData.types[0].type.name]
+            type1.style.filter = `drop-shadow(0 0 0.5em ${colors[mainData.types[0].type.name]})`
             type2.style.backgroundColor = ``
             type2.style.filter = ``
-
-
-
         };
-     
-        // Sprite Updates for next pokemon being displayed 
-        pokemonSprite.innerHTML = `
-                <img src="${data.sprites.other.home.front_default}" />`
 
-        pokemonSprite.style.filter = `drop-shadow(0 0 1em ${colors[data.types[0].type.name]})`
-
-        // Fetching API data for the pokedex entries
-        fetch(`https://pokeapi.co/api/v2/pokemon-species/${indexNumber}`)
-        .then (response => response.json())
-        .then (data => {
-            
-            // Finding specifically English entries
-            const filter1 = data.flavor_text_entries.filter((x) => x.language.name === 'en')
-            
-            // Filtering for Omega RUBY entries and defining the Text
-            const filter2 = filter1.filter((x) => x.version.name === 'omega-ruby')
-            const pokedexText = `${filter2[0].flavor_text}`
-
-            // Updating pokedex text entry
-            pokedexEntry.textContent = ""
-            pokedexEntry.textContent = pokedexText 
-
-            // Filtering for japanese pokedex entries
-            const filterJAP = data.flavor_text_entries.filter((x) => x.language.name === 'ja')
-            const pokedexTextJAP = `${filterJAP[0].flavor_text}`
-
-            // Updating Japanese pokedex entry
-            pokedexEntryJAP.textContent = pokedexTextJAP
-
-            // Filtering for Japanese Pokémon names
-            const filterNameJAP = data.names.filter((x) => x.language.name === 'ja-Hrkt')
-
-            // Updating Japanese Pokémon name
-            pokemonNameJAP.textContent = `${filterNameJAP[0].name}` 
-
-    })
-
-})};
-
-
-// Fetching sprites for every Pokémon for the background scroll animation (Very Costly)
-
-const backgroundSprites = document.getElementById("background");
-
-const background = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=386`)
-    .then (response => response.json())
-    .then (data => {
-        const map1 = data.results.map((x) => x)
-        map1.forEach(element => {
-            fetch(`${element.url}`)
-            .then (response => response.json())
-            .then (data => {
-                backgroundSprites.innerHTML += `
-                <img src="${data.sprites.other.home.front_default}" />
+         /* Abilities: 
+        if (pokedexData.abitlites.length > 1) {
+            abilityName.innerHTML = `
+            ${pokedexData.abitlites[0].name}
+            ${pokedexData.abilities[1].name}
             `
-            })
-        });
-    })
+        } else {
+            abilityName.innerHTMl = `${pokedexData.abilities[0].name}` 
+        } */
+
+    } catch (error) {
+        console.log("updatePokemonInfo ERROR", error)
+        }
+} 
+
+// Update Pokédex Entry function
+const updatePokedexEntry = async () => {
+    try {
+        const dataCall = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${indexNumber}`)
+        const pokedexData = await dataCall.json()
+
+        // Updating Pokémon name
+        const pokemonName = document.getElementById("pokemonName");
+        pokemonName.textContent = pokedexData.names.filter((x) => x.language.name === 'en')[0].name
+
+        const pokemonNumber = document.getElementById("pokemonNumber");
+        pokemonNumber.textContent = "#" + pokedexData.id
+
+        // Finding specifically English Omega Ruby Pokédex entries
+        const filter1 = pokedexData.flavor_text_entries.filter((x) => x.language.name === 'en').filter((x) => x.version.name === 'omega-ruby')
+        // Updating Pokédex entry
+        const pokedexEntry = document.getElementById("pokedexEntry");
+        pokedexEntry.textContent = `${filter1[0].flavor_text}`
+
+        // Filtering for japanese pokedex entries
+        const pokedexEntryJAP = document.getElementById("pokedexEntryJAP");
+        pokedexEntryJAP.textContent = pokedexData.flavor_text_entries.filter((x) => x.language.name === 'ja')[0].flavor_text
+
+        // Filtering for Japanese Pokémon names
+        const pokemonNameJAP = document.getElementById("pokemonNameJAP");
+        pokemonNameJAP.textContent = pokedexData.names.filter((x) => x.language.name === 'ja-Hrkt')[0].name
+    } catch (error) {
+        console.log("updatePokedexEntry ERROR", error)
+    }
+}
+
+// Fetching Gen1 Pokémon Sprites for the background scroll animation (Very Costly)
+const backgroundSprites = document.getElementById("background");
+const background = async () => {
+    try {
+        const gen1Data = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`)
+        const data = await gen1Data.json()
+
+        for(const element of data.results) {
+            const dataCall = await fetch(`${element.url}`);
+            const pokemonSprites = await dataCall.json();
+            backgroundSprites.innerHTML += `<img loading="lazy" src="${pokemonSprites.sprites.other.home.front_default}" />`
+        } 
+
+       
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 // On window load start pokemonData() to load pokemon information, and begin background animation with background()
-window.onload = pokemonData(), background();
+window.onload = () => {updatePokemonInfo(), updatePokedexEntry(), background()};
+
+
