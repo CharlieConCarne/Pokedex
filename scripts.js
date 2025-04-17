@@ -1,7 +1,7 @@
 import { colors } from "./type-colors.js"
 
 // Our index number for selecting which pokemon in the pokdex we are on
-let indexNumber = 150;
+let indexNumber = 1;
 
 // HTML buttons
 const nextBtn = document.getElementById("next");
