@@ -1,4 +1,5 @@
 import { colors } from "./type-colors.js"
+import sprites from "./sprites.js"
 
 // Our index number for selecting which pokemon in the pokdex we are on
 let indexNumber = 1;
@@ -97,15 +98,14 @@ const updatePokedexEntry = async () => {
         } else {
             abilityName.innerHTMl = `${pokedexData.abilities[0].name}` 
         } */
-       
+
     } catch (error) {
         console.log("updatePokedexEntry ERROR", error)
     }
-    
 }
 
 // Fetching Gen1 Pokémon Sprites for the background scroll animation (Very Costly)
-const backgroundSprites = document.getElementById("background");
+ /* const backgroundSprites = document.getElementById("background");
 const background = async () => {
     try {
         const gen1Data = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`)
@@ -121,6 +121,15 @@ const background = async () => {
     } catch (error) {
         console.error(error)
     }
+} */
+
+const background = () => {
+    const backgroundSprites = document.getElementById("background");
+    for(let i = 0; i < sprites.length; i++) {
+        backgroundSprites.innerHTML += `<img loading="lazy" src="img/sprites/${sprites[i]}"/>` 
+        console.log(sprites[i])
+    }
+    
 }
 
 // On window load start pokemonData() to load pokemon information, and begin background animation with background()
